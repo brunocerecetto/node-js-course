@@ -51,14 +51,17 @@ module.exports = class Cart {
       
       const updatedCart = {...cart }
       const product = updatedCart.products.find(p => p.id === id);
-      const productQty = product.qty;
+      if(product) {
 
-      updatedCart.products = updatedCart.products.filter(prod => prod.id !== product.id);
-      updatedCart.totalPrice = updatedCart.totalPrice - price * productQty;
-
-      fs.writeFile(p, JSON.stringify(updatedCart), err => {
-        console.log(err)
-      })
+        const productQty = product.qty;
+        
+        updatedCart.products = updatedCart.products.filter(prod => prod.id !== product.id);
+        updatedCart.totalPrice = updatedCart.totalPrice - price * productQty;
+        
+        fs.writeFile(p, JSON.stringify(updatedCart), err => {
+          console.log(err)
+        })
+      }
     })
   }
 
