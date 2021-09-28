@@ -1,3 +1,4 @@
+const e = require('express');
 const fs = require('fs');
 const path = require('path');
 
@@ -58,6 +59,16 @@ module.exports = class Cart {
       fs.writeFile(p, JSON.stringify(updatedCart), err => {
         console.log(err)
       })
+    })
+  }
+
+  static getCart(cb) {
+    fs.readFile(p, (err, fileContent) => {
+      if(err) {
+        cb(null)
+      } else {
+        cb(JSON.parse(fileContent));
+      }
     })
   }
 }
